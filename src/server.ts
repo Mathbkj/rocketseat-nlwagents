@@ -4,8 +4,8 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
-import { getRooms } from "http/routes/get-rooms.ts";
 import { PORT } from "./envLoader.ts";
+import { getRooms } from "./http/routes/get-rooms.ts";
 
 const app = fastify();
 
@@ -20,5 +20,7 @@ app.setValidatorCompiler(validatorCompiler);
 
 async function run() {
   await app.listen({ port: PORT });
+  //biome-ignore lint/suspicious/noConsole: development debugging purpose
+  console.log("Server is running 🙋");
 }
 await run();
