@@ -6,6 +6,9 @@ import {
 } from "fastify-type-provider-zod";
 import { PORT } from "./envLoader.ts";
 import { getRooms } from "./http/routes/get-rooms.ts";
+import { createRoom } from "./http/routes/create-room.ts";
+import { getRoomQuestions } from "./http/routes/get-room-questions.ts";
+import { createRoomQuestion } from "./http/routes/create-question.ts";
 
 const app = fastify();
 
@@ -14,7 +17,9 @@ app.register(fastifyCors, {
 });
 
 app.register(getRooms);
-
+app.register(createRoom);
+app.register(getRoomQuestions);
+app.register(createRoomQuestion);
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
