@@ -3,7 +3,7 @@ import { db } from "../../db/index.ts";
 import { options } from "../../db/schemas/index.ts";
 
 export const getRooms: FastifyPluginCallbackZod = (app) => {
-  app.get("/rooms", async () => {
+  app.get("/salas", async () => {
     const results = await db
       .select({
         id: options.rooms.id,
