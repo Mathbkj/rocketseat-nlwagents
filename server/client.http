@@ -15,8 +15,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "name":"Sala Teste 2",
-    "description":"Hoho"
+    "name":"Teste2",
+    "description":"Sala de teste para verificação de nomne único"
 }
 
 ###
