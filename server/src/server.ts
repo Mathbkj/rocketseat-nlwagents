@@ -21,6 +21,6 @@ app.setValidatorCompiler(validatorCompiler);
 async function run() {
   await app.listen({ port: PORT });
   //biome-ignore lint/suspicious/noConsole: development debugging purpose
-  console.log("Server is running 🙋");
+  console.log(`Server is running 🙋.\n PORT:${PORT}`);
 }
 await run();
