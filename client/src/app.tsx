@@ -8,7 +8,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<CreateRoom />} />
-          <Route path="/sala" element={<Room />} />
+          <Route path="/sala/:id" element={<Room />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
