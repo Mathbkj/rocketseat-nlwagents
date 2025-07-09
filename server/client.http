@@ -2,4 +2,41 @@
 
 @baseUrl = http://localhost:3333
 
-GET {{baseUrl}}/rooms
+# Get all the rooms
+# @name getRooms
+GET {{baseUrl}}/salas
+
+###
+
+# Create a room
+# @name createRoom
+POST {{baseUrl}}/salas                    
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name":"Sala Teste 2",
+    "description":"Hoho"
+}
+
+###
+
+@roomId = {{createRoom.response.body.$.id}}
+
+###
+
+# Get questions from a given room
+GET {{baseUrl}}/salas/{{roomId}}/perguntas
+
+###
+
+# Create a question in a room
+# @name createRoomQuestion
+POST {{baseUrl}}/salas/{{roomId}}/perguntas
+Accept:application/json
+Content-Type:application/json
+
+{
+    "question":"O que é uma função?"
+}
+
