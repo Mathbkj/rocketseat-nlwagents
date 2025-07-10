@@ -7,8 +7,8 @@ export default function App() {
     <QueryClientProvider client={new QueryClient()}>
       <BrowserRouter>
         <Routes>
-          <Route index element={<CreateRoom />} />
-          <Route path="/sala/:id" element={<Room />} />
+          <Route path="/salas" element={<CreateRoom />} />
+          <Route path="/salas/:roomId" element={<Room />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

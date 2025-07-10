@@ -1,30 +1,18 @@
-import { Button } from "@/components/ui/button";
-import Spinner from "@/components/ui/spinner";
-import type { GetRoomsAPIResponse } from "@/types/GetRoomsAPIResponse";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { CreateRoomForm } from "@/components/create-room-form";
+import { RoomList } from "@/components/room-list";
 
 export function CreateRoom() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["get-rooms"],
-    queryFn: async () => {
-      try {
-        const response = await fetch("http://localhost:3333/rooms");
-        const data: GetRoomsAPIResponse = await response.json();
-        return data;
-      } catch (err) {
-        if (err instanceof Error) {
-          return "Falha ao carregar salas. Por favor, tente novamente.";
-        }
-      }
-    },
-  });
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
   return (
-    <section className="flex flex-col items-start m-2 gap-1">
+    <div className="min-h-screen py-8 px-4">
+      <div className="mx-auto max-w-4xl">
+        <div className="grid gap-8 grid-cols-2 items-start">
+          <CreateRoomForm />
+          <RoomList />
+        </div>
+      </div>
+    </div>
+  );
+  /*<section className="flex flex-col items-start m-2 gap-1">
       <Button className="text-center">Criar Sala</Button>
       {isLoading && <Spinner />}
       {data && data.length > 0 && (
@@ -33,7 +21,7 @@ export function CreateRoom() {
             <span className="text-shadow-red-400">{data}</span>
           ) : (
             data.map((room) => (
-              <Link key={room.id} to={`/sala/${room.id}`} className="underline">
+              <Link key={room.id} to={`/salas/${room.id}`} className="underline">
                 {room.name}
               </Link>
             ))
@@ -42,4 +30,5 @@ export function CreateRoom() {
       )}
     </section>
   );
+*/
 }

@@ -9,5 +9,7 @@ export const questions = pgTable("questions", {
   question: text().notNull(),
   answer: text(),
   description: text(),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  createdAt: timestamp("created_at", { mode: "date" })
+    .$defaultFn(() => new Date())
+    .notNull(),
 });

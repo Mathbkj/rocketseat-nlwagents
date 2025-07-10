@@ -6,7 +6,10 @@ await reset(db, options);
 await seed(db, options).refine((faker) => {
   return {
     rooms: {
-      columns: { name: faker.companyName(), description: faker.loremIpsum() },
+      columns: {
+        name: faker.companyName(),
+        description: faker.loremIpsum(),
+      },
       with: {
         questions: 10,
       },
