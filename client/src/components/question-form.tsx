@@ -1,14 +1,14 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { Button } from '@/components/ui/button'
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -16,36 +16,40 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Textarea } from '@/components/ui/textarea'
+} from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
+import { useCreateQuestion } from "@/hooks/useCreateQuestion";
+import Spinner from "./ui/spinner";
 
 // Esquema de validação no mesmo arquivo conforme solicitado
 const createQuestionSchema = z.object({
   question: z
     .string()
-    .min(1, 'Pergunta é obrigatória')
-    .min(10, 'Pergunta deve ter pelo menos 10 caracteres')
-    .max(500, 'Pergunta deve ter menos de 500 caracteres'),
-})
+    .min(1, "Pergunta é obrigatória")
+    .min(10, "Pergunta deve ter pelo menos 10 caracteres")
+    .max(500, "Pergunta deve ter menos de 500 caracteres"),
+});
 
-type CreateQuestionFormData = z.infer<typeof createQuestionSchema>
+type CreateQuestionFormData = z.infer<typeof createQuestionSchema>;
 
 interface QuestionFormProps {
-  roomId: string
+  roomId: string;
 }
 
 export function QuestionForm({ roomId }: QuestionFormProps) {
-  const form = useForm<CreateQuestionFormData>({
+  const { mutateAsync: createQuestion } = useCreateQuestion(roomId);
+  const { formState, ...props } = useForm<CreateQuestionFormData>({
     resolver: zodResolver(createQuestionSchema),
     defaultValues: {
-      question: '',
+      question: "",
     },
-  })
+  });
 
-  function handleCreateQuestion(data: CreateQuestionFormData) {
-    // biome-ignore lint/suspicious/noConsole: dev
-    console.log(data, roomId)
+  async function handleCreateQuestion(data: CreateQuestionFormData) {
+    const b = await createQuestion(data);
+    console.log(b);
   }
+  const { isSubmitting } = formState;
 
   return (
     <Card>
@@ -56,19 +60,20 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Form {...form}>
+        <Form formState={formState} {...props}>
           <form
             className="flex flex-col gap-4"
-            onSubmit={form.handleSubmit(handleCreateQuestion)}
+            onSubmit={props.handleSubmit(handleCreateQuestion)}
           >
             <FormField
-              control={form.control}
+              control={props.control}
               name="question"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Sua Pergunta</FormLabel>
                   <FormControl>
                     <Textarea
+                      disabled={isSubmitting}
                       className="min-h-[100px]"
                       placeholder="O que você gostaria de saber?"
                       {...field}
@@ -79,10 +84,12 @@ export function QuestionForm({ roomId }: QuestionFormProps) {
               )}
             />
 
-            <Button type="submit">Enviar pergunta</Button>
+            <Button disabled={isSubmitting} type="submit">
+              {isSubmitting ? "Enviando..." : "Enviar pergunta"}
+            </Button>
           </form>
         </Form>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -14,7 +14,7 @@ import Spinner from "./ui/spinner";
 import { useEffect } from "react";
 import { useRooms } from "@/hooks/useRooms";
 export function RoomList() {
-  const { data, isLoading } = useRooms();
+  const { data, isLoading, isLoadingError } = useRooms();
   useEffect(() => {
     console.log(data);
   }, [data]);
@@ -35,6 +35,7 @@ export function RoomList() {
             </span>
           </>
         )}
+        {isLoadingError && <span>Falha ao carregar salas</span>}
         {data &&
           typeof data !== "string" &&
           data.map((room) => (

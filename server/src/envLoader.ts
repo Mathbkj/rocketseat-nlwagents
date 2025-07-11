@@ -7,5 +7,8 @@ const envSchema = z.object({
     .url()
     .startsWith("postgresql://")
     .default("postgresql://docker:docker@localhost:5432/agents"),
+  GOOGLE_GENAI_API_KEY: z.string(),
 });
-export const { PORT, DB_URL } = envSchema.parse(process.env);
+export const { PORT, DB_URL, GOOGLE_GENAI_API_KEY } = envSchema.parse(
+  process.env
+);

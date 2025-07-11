@@ -12,23 +12,4 @@ export function CreateRoom() {
       </div>
     </div>
   );
-  /*<section className="flex flex-col items-start m-2 gap-1">
-      <Button className="text-center">Criar Sala</Button>
-      {isLoading && <Spinner />}
-      {data && data.length > 0 && (
-        <>
-          {typeof data === "string" ? (
-            <span className="text-shadow-red-400">{data}</span>
-          ) : (
-            data.map((room) => (
-              <Link key={room.id} to={`/salas/${room.id}`} className="underline">
-                {room.name}
-              </Link>
-            ))
-          )}
-        </>
-      )}
-    </section>
-  );
-*/
 }

@@ -2,7 +2,6 @@ import type { FastifyPluginCallbackZod } from "fastify-type-provider-zod";
 import { db } from "../../db/index.ts";
 import { options } from "../../db/schemas/index.ts";
 import { z } from "zod/v4";
-import { createDecipheriv } from "crypto";
 import { desc, eq } from "drizzle-orm";
 
 export const getRoomQuestions: FastifyPluginCallbackZod = (app) => {
@@ -25,10 +24,7 @@ export const getRoomQuestions: FastifyPluginCallbackZod = (app) => {
         })
         .from(options.questions)
         .where(eq(options.questions.roomId, id))
-        .orderBy(
-          options.questions.createdAt,
-          desc(options.questions.createdAt)
-        );
+        .orderBy(desc(options.questions.createdAt));
       return results;
     }
   );
