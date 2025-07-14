@@ -8,6 +8,13 @@ GET {{baseUrl}}/salas
 
 ###
 
+
+# Get a room by it's name
+# @name getRoomByName
+GET {{baseUrl}}/salas?name=Sala
+
+###
+
 # Create a room
 # @name createRoom
 POST {{baseUrl}}/salas                    

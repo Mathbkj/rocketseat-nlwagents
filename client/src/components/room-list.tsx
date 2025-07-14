@@ -1,6 +1,6 @@
 import { formatDate } from "@/lib/utils/format-relative-date";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { Badge } from "./ui/badge";
 import {
   Card,
@@ -10,31 +10,34 @@ import {
   CardContent,
 } from "./ui/card";
 
-import Spinner from "./ui/spinner";
-import { useEffect } from "react";
+import { useState } from "react";
 import { useRooms } from "@/hooks/useRooms";
+import { Input } from "./ui/input";
+
 export function RoomList() {
-  const { data, isLoading, isLoadingError } = useRooms();
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  // This is a hook that allows the input component to dynamically search for rooms
+  const [search, setSearch] = useState("");
+
+  const { data, isRefetching, isLoading, isLoadingError } = useRooms(search);
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Salas mais recentes</CardTitle>
         <CardDescription>
-          Acesso rápido ás salas criadas recentemente.
+          Acesso rápido às salas criadas recentemente.
         </CardDescription>
+        <Input
+          placeholder="Buscar salas..."
+          value={search}
+          onChange={(ev) => {
+            setSearch(ev.target.value);
+          }}
+        />
       </CardHeader>
-      <CardContent className="flex flex-col gap-3">
-        {isLoading && (
-          <>
-            <Spinner />
-            <span className="text-muted-foreground text-sm">
-              Carregando salas...
-            </span>
-          </>
-        )}
+
+      <CardContent className="flex self-center flex-col gap-3">
+        {isRefetching || (isLoading && <Loader2 className="animate-spin" />)}
         {isLoadingError && <span>Falha ao carregar salas</span>}
         {data &&
           typeof data !== "string" &&
@@ -51,7 +54,7 @@ export function RoomList() {
                     {formatDate(new Date(room.createdAt))}
                   </Badge>
                   <Badge className="text-xs" variant="secondary">
-                    {room.questionsCount}pergunta(s)
+                    {room.questionsCount} pergunta(s)
                   </Badge>
                 </div>
               </div>
