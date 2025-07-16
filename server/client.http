@@ -46,4 +46,12 @@ Content-Type:application/json
 {
     "question":"Animais são felizes?"
 }
+###
+
+# Get audios from a given room
+# @name getAudios
+GET {{baseUrl}}/salas/a8b97240-863e-43bd-a69b-85321a45ab6b/audios
+
+
+
 
