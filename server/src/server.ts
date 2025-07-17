@@ -10,7 +10,8 @@ import { getRooms } from "./http/routes/get-rooms.ts";
 import { createRoom } from "./http/routes/create-room.ts";
 import { getRoomQuestions } from "./http/routes/get-room-questions.ts";
 import { createRoomQuestion } from "./http/routes/create-question.ts";
-import { uploadAudio } from "./http/routes/upload-audio.ts";
+import { createRoomAudio } from "./http/routes/create-audio.ts";
+import { getRoomAudios } from "./http/routes/get-audios.ts";
 
 const app = fastify();
 
@@ -20,10 +21,11 @@ app.register(fastifyCors, {
 app.register(fastifyMultipart);
 
 app.register(getRooms);
-app.register(createRoom);
 app.register(getRoomQuestions);
+app.register(getRoomAudios);
+app.register(createRoom);
 app.register(createRoomQuestion);
-app.register(uploadAudio);
+app.register(createRoomAudio);
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
