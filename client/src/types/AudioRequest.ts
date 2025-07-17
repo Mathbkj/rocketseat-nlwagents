@@ -1,3 +1,3 @@
 export interface AudioRequest {
-  file: Blob;
+  formData: FormData;
 }
