@@ -1,6 +1,8 @@
+import { SidebarAudios } from "@/components/sidebar-audios";
 import { QuestionForm } from "@/components/question-form";
 import { QuestionList } from "@/components/question-list";
 import { Button } from "@/components/ui/button";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import type { RoomParams } from "@/types/RoomParams";
 import { ArrowLeft, Radio } from "lucide-react";
 import { useEffect } from "react";
@@ -12,18 +14,22 @@ export function Room() {
 
   useEffect(() => {
     // Debug Purposes
-    console.log("Joined a room: client");
+
     setTimeout(() => {
       if (!roomId) {
         navigate("/salas");
       }
     }, 1000);
+
     // Debug Purposes
     return () => console.log("Exit a room: client");
   }, [roomId]);
 
   return (
-    <div className="min-h-screen bg-zinc-950">
+    <SidebarProvider>
+      <SidebarAudios roomId={roomId as string} />
+      <SidebarTrigger />
+      <div className="mx-auto self-center bg-zinc-950">
       <div className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-8">
           <div className="mb-4 flex items-center justify-between">
@@ -54,5 +60,6 @@ export function Room() {
         <QuestionList roomId={roomId as string} />
       </div>
     </div>
+    </SidebarProvider>
   );
 }
