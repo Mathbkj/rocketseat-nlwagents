@@ -4,6 +4,7 @@
   "main": "",
   "type": "module",
   "scripts": {
+    "build":"tsc",
     "dev": "node --env-file .env --experimental-strip-types --no-warnings --watch src/server.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
