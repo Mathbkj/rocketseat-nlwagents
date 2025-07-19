@@ -2,19 +2,21 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "_version": "20.1.0",
   "compilerOptions": {
-    "rootDir": "./src",
+    "outDir": "./dist",
+    "rewriteRelativeImportExtensions": true,
+    "isolatedModules": true,
     "lib": ["es2023"],
     "types": ["node"],
     "module": "nodenext",
     "target": "es2022",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "moduleResolution": "nodenext",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16",
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
     "strictNullChecks": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules/**/*"]
 }
