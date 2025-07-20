@@ -3,7 +3,8 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "_version": "20.1.0",
   "compilerOptions": {
-    "outDir": "dist",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "rewriteRelativeImportExtensions": true,
     "isolatedModules": true,
     "lib": ["esnext"],
@@ -18,6 +19,6 @@
     "strictNullChecks": true,
     "strict": true
   },
-  "include": ["**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules/**/*"]
 }
