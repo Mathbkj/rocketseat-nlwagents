@@ -5,7 +5,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from "fastify-type-provider-zod";
-import { PORT } from "./envLoader.ts";
+import { HOST, PORT } from "./envLoader.ts";
 import { getRooms } from "./http/routes/get-rooms.ts";
 import { createRoom } from "./http/routes/create-room.ts";
 import { getRoomQuestions } from "./http/routes/get-room-questions.ts";
@@ -30,7 +30,7 @@ app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
 async function run() {
-  await app.listen({ port: PORT });
+  await app.listen({ host: HOST, port: PORT });
   console.log(`Server is running`);
 }
 await run();
