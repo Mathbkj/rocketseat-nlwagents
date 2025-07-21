@@ -1,5 +1,6 @@
 services:
   nlw-agents-pg:
+<<<<<<< HEAD
     container_name: pgvector
     image: pgvector/pgvector:0.8.0-pg17
     environment:
@@ -10,3 +11,16 @@ services:
       - "8080:5432"
     volumes:
       - ./pg_data.sql:/docker-entrypoint-initdb.d/pg_data.sql
+=======
+    image: pgvector/pgvector:0.8.0-pg17
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: agents
+
+    ports:
+      - "5432:5432"
+    
+    volumes:
+      - ./docker/pg_data.sql:/docker-entrypoint-initdb.d/pg_data.sql
+>>>>>>> 5f1a0ac (Initial commit)

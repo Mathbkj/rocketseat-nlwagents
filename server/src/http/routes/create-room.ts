@@ -19,10 +19,16 @@ export const createRoom: FastifyPluginCallbackZod = (app) => {
       const result = await db
         .insert(options.rooms)
         .values({
+<<<<<<< HEAD
           name: name.split(" ").join("").trim(),
           description: description ?? null,
         })
         .onConflictDoNothing()
+=======
+          name,
+          description: description ?? null,
+        })
+>>>>>>> 5f1a0ac (Initial commit)
         .returning();
 
       if (!result[0]) throw new Error("Falha ao criar nova sala");

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+<<<<<<< HEAD
 import { useCreateAudio } from "@/hooks/useCreateAudio";
 import { formatRelativeTime } from "@/lib/utils/format-relative-time";
 import type { RoomParams } from "@/types/RoomParams";
@@ -11,6 +12,14 @@ export function RecordRoomAudio() {
   const { roomId } = useParams<RoomParams>();
   const { mutateAsync: uploadAudio } = useCreateAudio(roomId!);
 
+=======
+import type { RoomParams } from "@/types/RoomParams";
+import { useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+
+export function RecordRoomAudio() {
+  const { roomId } = useParams<RoomParams>();
+>>>>>>> 5f1a0ac (Initial commit)
   // Variável para checar se o navegador suporta gravação de áudio
   const isRecordingSupported =
     !!navigator.mediaDevices &&
@@ -18,6 +27,7 @@ export function RecordRoomAudio() {
     typeof window.MediaRecorder === "function";
 
   const [isRecording, setIsRecording] = useState(false);
+<<<<<<< HEAD
   /*Estado necessário para saber se a gravação foi pausada*/
   const [isPaused, setIsPaused] = useState(false);
   const [elapsed, setElapsed] = useState(0);
@@ -28,11 +38,44 @@ export function RecordRoomAudio() {
   const analyserRef = useRef<AnalyserNode | null>(null);
   const animationRef = useRef(0);
 
+=======
+  const recorderRef = useRef<MediaRecorder | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  async function uploadAudio(blob: Blob) {
+    const formData = new FormData();
+    formData.append("file", blob);
+    const response = await fetch(
+      `http://localhost:3333/salas/${roomId}/audio`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    for (const [key, value] of formData.entries()) {
+      console.log(`${key}: ${JSON.stringify(value)}`);
+    }
+    const result = await response.json();
+    console.log(result);
+  }
+
+  async function stopRecording() {
+    setIsRecording(false);
+    if (recorderRef.current && recorderRef.current.state !== "inactive") {
+      recorderRef.current.stop();
+
+    }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+  }
+>>>>>>> 5f1a0ac (Initial commit)
   function createRecorder(audio: MediaStream) {
     recorderRef.current = new MediaRecorder(audio, {
       mimeType: "audio/webm",
       audioBitsPerSecond: 64_000,
     });
+<<<<<<< HEAD
     recorderRef.current.ondataavailable = async (event) => {
       if (event.data.size > 0) {
         const formData = new FormData();
@@ -90,6 +133,27 @@ export function RecordRoomAudio() {
     }
     setIsRecording(true);
     setElapsed(0);
+=======
+    recorderRef.current.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        console.log(event.data.size);
+        uploadAudio(event.data);
+      }
+    };
+
+    recorderRef.current.onstart = () => console.log("Gravação iniciada");
+    recorderRef.current.onstop = () => {
+      console.log("Gravação parada");
+    };
+    recorderRef.current.start();
+  }
+  async function startRecording() {
+    if (!isRecordingSupported) {
+      alert("Gravação de áudio não é suportada neste navegador.");
+      return;
+    }
+    setIsRecording(true);
+>>>>>>> 5f1a0ac (Initial commit)
     const audio = await navigator.mediaDevices.getUserMedia({
       audio: {
         echoCancellation: true,
@@ -97,6 +161,7 @@ export function RecordRoomAudio() {
         sampleRate: 44_100,
       },
     });
+<<<<<<< HEAD
     createRecorder(audio);
     getByteData(audio);
 
@@ -137,12 +202,23 @@ export function RecordRoomAudio() {
   }, []);
 
   const time = formatRelativeTime(elapsed);
+=======
+
+    createRecorder(audio);
+
+    intervalRef.current = setInterval(() => {
+      recorderRef.current?.stop();
+      createRecorder(audio);
+    }, 5000);
+  }
+>>>>>>> 5f1a0ac (Initial commit)
 
   return (
     <div className="h-screen flex items-center justify-center flex-col gap-3">
       {!isRecording ? (
         <Button onClick={startRecording}>Gravar Audio</Button>
       ) : (
+<<<<<<< HEAD
         <section className="flex relative flex-col items-center gap-2 overflow-hidden">
           {!isPaused ? (
             <Mic size={70} className="border p-2 rounded-full" />
@@ -197,6 +273,9 @@ export function RecordRoomAudio() {
             )}
           </div>
         </section>
+=======
+        <Button onClick={stopRecording}>Parar Gravação</Button>
+>>>>>>> 5f1a0ac (Initial commit)
       )}
     </div>
   );

@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 /*Arquivo de configuração do typescript para ambiente de desenvolvimento*/
+=======
+>>>>>>> 5f1a0ac (Initial commit)
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "_version": "20.1.0",
   "compilerOptions": {
+<<<<<<< HEAD
     "rootDir": "./src",
     "outDir": "./dist",
     "rewriteRelativeImportExtensions": true,
@@ -20,4 +24,18 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules/**/*"]
+=======
+    "baseUrl": "./src",
+    "lib": ["es2023"],
+    "module": "nodenext",
+    "target": "es2022",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node16",
+    "strictNullChecks": true
+  }
+>>>>>>> 5f1a0ac (Initial commit)
 }

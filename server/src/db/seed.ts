@@ -17,3 +17,8 @@ await seed(db, options).refine((faker) => {
   };
 });
 await client.end();
+<<<<<<< HEAD
+=======
+// biome-ignore lint/suspicious/noConsole: development debugging purpose
+console.log("Database seeded successfully!");
+>>>>>>> 5f1a0ac (Initial commit)

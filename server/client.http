@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Variables
 
 @baseUrl = http://localhost:3333
@@ -55,3 +56,47 @@ GET {{baseUrl}}/salas/a8b97240-863e-43bd-a69b-85321a45ab6b/audios
 
 
 
+=======
+# Variables
+
+@baseUrl = http://localhost:3333
+
+# Get all the rooms
+# @name getRooms
+GET {{baseUrl}}/salas
+
+###
+
+# Create a room
+# @name createRoom
+POST {{baseUrl}}/salas                    
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name":"Teste2",
+    "description":"Sala de teste para verificação de nomne único"
+}
+
+###
+
+@roomId = {{createRoom.response.body.$.id}}
+
+###
+
+# Get questions from a given room
+GET {{baseUrl}}/salas/16beeb64-55e1-4390-bc81-91af1ed7aaca/perguntas
+
+###
+
+# Create a question in a room
+# @name createRoomQuestion
+POST {{baseUrl}}/salas/16beeb64-55e1-4390-bc81-91af1ed7aaca/perguntas
+Accept:application/json
+Content-Type:application/json
+
+{
+    "question":"Animais são felizes?"
+}
+
+>>>>>>> 5f1a0ac (Initial commit)

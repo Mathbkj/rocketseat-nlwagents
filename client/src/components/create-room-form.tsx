@@ -21,7 +21,11 @@ import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { useCreateRoom } from "@/hooks/useCreateRoom";
 
+<<<<<<< HEAD
 export default function CreateRoomForm() {
+=======
+export function CreateRoomForm() {
+>>>>>>> 5f1a0ac (Initial commit)
   const { mutateAsync: createRoom } = useCreateRoom();
   const roomForm = useForm<DataForm>({
     resolver: zodResolver(createFormSchema),

@@ -65,7 +65,11 @@ function CardContent({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="card-content"
+<<<<<<< HEAD
       className={cn("px-6 divide-y-4", className)}
+=======
+      className={cn("px-6", className)}
+>>>>>>> 5f1a0ac (Initial commit)
       {...props}
     />
   )

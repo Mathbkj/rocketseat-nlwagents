@@ -14,7 +14,11 @@ interface QuestionItemProps {
   question: Question;
 }
 
+<<<<<<< HEAD
 export default function QuestionItem({ question }: QuestionItemProps) {
+=======
+export function QuestionItem({ question }: QuestionItemProps) {
+>>>>>>> 5f1a0ac (Initial commit)
   const { isGeneratingAnswer } = question;
 
   return (
@@ -22,6 +26,10 @@ export default function QuestionItem({ question }: QuestionItemProps) {
       <CardContent>
         <div className="space-y-4">
           {/* Question */}
+<<<<<<< HEAD
+=======
+          {!question.answer && !question.isGeneratingAnswer && <></>}
+>>>>>>> 5f1a0ac (Initial commit)
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0">
               <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">

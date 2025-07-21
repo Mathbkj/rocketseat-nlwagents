@@ -11,6 +11,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+<<<<<<< HEAD
   server: {
     port: Number(process.env.PORT || "5173"),
     proxy: {
@@ -32,4 +33,8 @@ export default defineConfig({
     },
   },
   // Caminho base da aplicação(URL raiz)
+=======
+  // Define the base path for the application
+  base:'/salas'
+>>>>>>> 5f1a0ac (Initial commit)
 });

@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+<<<<<<< HEAD
 
 interface ViteTypeOptions {
   // By adding this line, you can make the type of ImportMetaEnv strict
@@ -14,3 +15,5 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+=======
+>>>>>>> 5f1a0ac (Initial commit)

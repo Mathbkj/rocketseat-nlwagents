@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { lazy, Suspense } from "react";
 import { delay } from "@/lib/utils/delay";
 import { ErrorBoundary } from "@/components/error-boundary";
@@ -6,10 +7,15 @@ import { RoomListSkeleton } from "@/components/core/room-list-skeleton";
 const ErrorPreview = lazy(() => import("../components/core/server-error.tsx"));
 const FormPreview = lazy(() => delay(import("../components/create-room-form.tsx")));
 const RoomPreview = lazy(() => delay(import("../components/room-list.tsx")));
+=======
+import { CreateRoomForm } from "@/components/create-room-form";
+import { RoomList } from "@/components/room-list";
+>>>>>>> 5f1a0ac (Initial commit)
 
 export function CreateRoom() {
   return (
     <div className="min-h-screen py-8 px-4">
+<<<<<<< HEAD
       <ErrorBoundary
         error={new Error("Falha no servidor")}
         resetErrorBoundary={() => {}}
@@ -26,6 +32,14 @@ export function CreateRoom() {
           </div>
         </div>
       </ErrorBoundary>
+=======
+      <div className="mx-auto max-w-4xl">
+        <div className="grid gap-8 grid-cols-2 items-start">
+          <CreateRoomForm />
+          <RoomList />
+        </div>
+      </div>
+>>>>>>> 5f1a0ac (Initial commit)
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Room } from "@/pages/room";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecordRoomAudio } from "./pages/record-room-audio";
+<<<<<<< HEAD
 import { Toaster } from "./components/ui/sonner";
 import { toast } from "sonner";
 
@@ -54,6 +55,16 @@ export default function App() {
           <Route path="/" element={<CreateRoom />} />
           <Route path="/:roomId" element={<Room />} />
           <Route path="/:roomId/:audio" element={<RecordRoomAudio />} />
+=======
+export default function App() {
+  return (
+    <QueryClientProvider client={new QueryClient()}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/salas" element={<CreateRoom />} />
+          <Route path="/salas/:roomId" element={<Room />} />
+          <Route path="/salas/:roomId/:audio" element={<RecordRoomAudio />} />
+>>>>>>> 5f1a0ac (Initial commit)
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

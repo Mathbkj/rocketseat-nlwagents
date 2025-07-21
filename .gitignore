@@ -1,7 +1,12 @@
 node_modules
+<<<<<<< HEAD
 # Necessário para ignorar quaisquer arquivos de build.
 package-lock.json
 dist
 migrations
 **/tests/
 .env.local
+=======
+migrations
+.env
+>>>>>>> 5f1a0ac (Initial commit)

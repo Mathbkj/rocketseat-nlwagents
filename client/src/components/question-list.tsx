@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { lazy, Suspense } from "react";
 import { useRoomQuestions } from "@/hooks/useRoomQuestions";
 import { delay } from "@/lib/utils/delay";
@@ -5,6 +6,10 @@ import { QuestionItemSkeleton } from "@/components/core/question-item-skeleton";
 const QuestionItem = lazy(() =>
   delay(import("../components/question-item.tsx"))
 );
+=======
+import { useRoomQuestions } from "@/hooks/useRoomQuestions";
+import { QuestionItem } from "./question-item";
+>>>>>>> 5f1a0ac (Initial commit)
 
 interface QuestionListProps {
   roomId: string;
@@ -22,9 +27,13 @@ export function QuestionList({ roomId }: QuestionListProps) {
       {data &&
         typeof data !== "string" &&
         data.map((question) => (
+<<<<<<< HEAD
           <Suspense key={question.id} fallback={<QuestionItemSkeleton />}>
             <QuestionItem key={question.id} question={question} />
           </Suspense>
+=======
+          <QuestionItem key={question.id} question={question} />
+>>>>>>> 5f1a0ac (Initial commit)
         ))}
     </div>
   );

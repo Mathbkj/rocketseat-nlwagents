@@ -4,7 +4,10 @@ import type { ComponentProps } from "react";
 function Input({ className, type, ...props }: ComponentProps<"input">) {
   return (
     <input
+<<<<<<< HEAD
       children={props.children}
+=======
+>>>>>>> 5f1a0ac (Initial commit)
       type={type}
       data-slot="input"
       className={cn(

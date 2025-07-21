@@ -7,7 +7,11 @@ export function useRoomQuestions(roomId: string) {
     queryFn: async () => {
       try {
         const response = await fetch(
+<<<<<<< HEAD
           `${import.meta.env.VITE_API_URL}/salas/${roomId}/perguntas`
+=======
+          `http://localhost:3333/salas/${roomId}/perguntas`
+>>>>>>> 5f1a0ac (Initial commit)
         );
         const data: GetRoomsQuestionsResponse = await response.json();
         return data;
