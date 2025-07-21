@@ -4,7 +4,9 @@ import type { FastifyPluginCallbackZod } from "fastify-type-provider-zod";
 import { z } from "zod/v4";
 import { options } from "../../db/schemas/index.ts";
 
-export const createRoomAudio: FastifyPluginCallbackZod = (app) => {
+export const 
+
+  createRoomAudio: FastifyPluginCallbackZod = (app) => {
   app.post(
     "/salas/:roomId/audios",
     {

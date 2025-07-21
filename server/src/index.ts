@@ -31,5 +31,6 @@ app.setValidatorCompiler(validatorCompiler);
 
 async function run() {
   await app.listen({ port: PORT });
+  console.log(`Server is running`);
 }
 await run();
