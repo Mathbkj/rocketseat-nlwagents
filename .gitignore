@@ -1,3 +1,5 @@
 node_modules
+# Necessário para ignorar quaisquer arquivos de build.
+dist
 migrations
 .env
