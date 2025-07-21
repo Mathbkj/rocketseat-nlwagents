@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, uuid, vector } from "drizzle-orm/pg-core";
+import { pgTable, text, uuid, vector } from "drizzle-orm/pg-core";
 import { rooms } from "./rooms.ts";
 
 export const audioChunks = pgTable("audio_chunks", {
