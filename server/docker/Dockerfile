@@ -7,7 +7,7 @@ ENV POSTGRES_USER=postgres \
     POSTGRES_DB=postgres
 
 # Copy SQL initialization script into the correct directory
-COPY ./pg_data.sql:/docker-entrypoint-initdb.d/pg_data.sql
+COPY ./pg_data.sql /docker-entrypoint-initdb.d/pg_data.sql
 
 # Expose default PostgreSQL port
 EXPOSE 5432
