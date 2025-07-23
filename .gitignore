@@ -1,5 +1,6 @@
 node_modules
 # Necessário para ignorar quaisquer arquivos de build.
+package-lock.json
 dist
 migrations
 .env
