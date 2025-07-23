@@ -8,7 +8,7 @@
     "rewriteRelativeImportExtensions": true,
     "isolatedModules": true,
     "lib": ["esnext"],
-      "types": ["node"],
+    "types": ["node"],
     "module": "nodenext",
     "target": "es2022",
     "moduleResolution": "nodenext",
