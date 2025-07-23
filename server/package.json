@@ -2,9 +2,6 @@
   "name": "rocketseat-nlw-agents",
   "version": "1.0.0",
   "type": "module",
-  "engines": {
-    "node": "22"
-  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "npm run prod:push && node ./dist/index.js",
