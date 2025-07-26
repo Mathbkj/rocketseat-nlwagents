@@ -1,4 +1,4 @@
-import type { GetRoomsAPIResponse } from "@/types/GetRoomsAPIResponse";
+import type { GetRoomAudioResponse } from "@/types/GetRoomAudioResponse";
 import { useQuery } from "@tanstack/react-query";
 
 export function useAudios(roomId: string) {
@@ -9,7 +9,7 @@ export function useAudios(roomId: string) {
         const response = await fetch(
           `http://localhost:3333/salas/${roomId}/audios`
         );
-        const data: GetRoomsAPIResponse = await response.json();
+        const data: GetRoomAudioResponse = await response.json();
         return data;
       } catch (err) {
         if (err instanceof Error) {

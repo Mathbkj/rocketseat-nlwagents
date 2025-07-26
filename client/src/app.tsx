@@ -3,9 +3,32 @@ import { Room } from "@/pages/room";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecordRoomAudio } from "./pages/record-room-audio";
+import { Toaster } from "./components/ui/sonner";
+import { toast } from "sonner";
 export default function App() {
   return (
-    <QueryClientProvider client={new QueryClient()}>
+    <QueryClientProvider
+      client={
+        new QueryClient({
+          defaultOptions: {
+            queries: {
+              retry: 1,
+              throwOnError: true,
+            },
+            mutations: {
+              throwOnError: false,
+              onError: (error) => toast.error(error.message),
+            },
+          },
+        })
+      }
+    >
+      <Toaster
+        richColors
+        position="top-right"
+        closeButton
+        toastOptions={{ duration: 2000 }}
+      />
       <BrowserRouter>
         <Routes>
           <Route path="/salas" element={<CreateRoom />} />

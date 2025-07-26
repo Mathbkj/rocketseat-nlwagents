@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AudioRequest } from "@/types/AudioRequest";
 import type { AudioResponse } from "@/types/AudioResponse";
+import { toast } from "sonner";
 
 export function useCreateAudio(roomId: string) {
   const queryClient = useQueryClient();
@@ -20,6 +21,7 @@ export function useCreateAudio(roomId: string) {
       queryClient.invalidateQueries({
         queryKey: ["get-rooms", roomId, "audios"],
       });
+      toast.success("Áudio enviado com sucesso!");
     },
   });
 }

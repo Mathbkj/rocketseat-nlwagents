@@ -64,7 +64,7 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-  defaultOpen = true,
+  defaultOpen = false,
   open: openProp,
   onOpenChange: setOpenProp,
   className,
@@ -72,7 +72,7 @@ function SidebarProvider({
   children,
   ...props
 }: ComponentProps<"div"> & {
-  defaultOpen?: boolean;
+    defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }) {
@@ -149,7 +149,7 @@ function SidebarProvider({
             } as CSSProperties
           }
           className={cn(
-            "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex flex-row-reverse min-h-svh w-full",
+            "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar ",
             className
           )}
           {...props}

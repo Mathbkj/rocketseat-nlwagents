@@ -1,10 +1,15 @@
 import { Button } from "@/components/ui/button";
+import { useCreateAudio } from "@/hooks/useCreateAudio";
+import { formatRelativeTime } from "@/lib/utils/format-relative-time";
 import type { RoomParams } from "@/types/RoomParams";
-import { useRef, useState } from "react";
+import { Mic, Pause, Play, StopCircle } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export function RecordRoomAudio() {
   const { roomId } = useParams<RoomParams>();
+  const { mutateAsync: uploadAudio } = useCreateAudio(roomId!);
+
   // Variável para checar se o navegador suporta gravação de áudio
   const isRecordingSupported =
     !!navigator.mediaDevices &&
@@ -12,45 +17,23 @@ export function RecordRoomAudio() {
     typeof window.MediaRecorder === "function";
 
   const [isRecording, setIsRecording] = useState(false);
+  /*Estado necessário para saber se a gravação foi pausada*/
+  const [isPaused, setIsPaused] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
   const recorderRef = useRef<MediaRecorder | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const tickRef = useRef<NodeJS.Timeout | null>(null);
 
-  async function uploadAudio(blob: Blob) {
-    const formData = new FormData();
-    formData.append("file", blob);
-    const response = await fetch(
-      `http://localhost:3333/salas/${roomId}/audio`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${JSON.stringify(value)}`);
-    }
-    const result = await response.json();
-    console.log(result);
-  }
-
-  async function stopRecording() {
-    setIsRecording(false);
-    if (recorderRef.current && recorderRef.current.state !== "inactive") {
-      recorderRef.current.stop();
-
-    }
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-  }
   function createRecorder(audio: MediaStream) {
     recorderRef.current = new MediaRecorder(audio, {
       mimeType: "audio/webm",
       audioBitsPerSecond: 64_000,
     });
-    recorderRef.current.ondataavailable = (event) => {
+    recorderRef.current.ondataavailable = async (event) => {
       if (event.data.size > 0) {
-        console.log(event.data.size);
-        uploadAudio(event.data);
+        const formData = new FormData();
+        formData.append("file", event.data);
+        await uploadAudio({ formData });
       }
     };
 
@@ -60,12 +43,14 @@ export function RecordRoomAudio() {
     };
     recorderRef.current.start();
   }
+
   async function startRecording() {
     if (!isRecordingSupported) {
       alert("Gravação de áudio não é suportada neste navegador.");
       return;
     }
     setIsRecording(true);
+    setElapsed(0);
     const audio = await navigator.mediaDevices.getUserMedia({
       audio: {
         echoCancellation: true,
@@ -74,20 +59,101 @@ export function RecordRoomAudio() {
       },
     });
 
+    streamRef.current && streamRef.current === audio;
+
     createRecorder(audio);
 
-    intervalRef.current = setInterval(() => {
-      recorderRef.current?.stop();
-      createRecorder(audio);
-    }, 5000);
+    tickRef.current = setInterval(() => {
+      setElapsed((prev) => prev + 1);
+    }, 1000);
   }
+  async function stopRecording() {
+    setIsRecording(false);
+    if (recorderRef.current && recorderRef.current.state !== "inactive") {
+      recorderRef.current.stop();
+    }
+    if (tickRef.current) {
+      clearInterval(tickRef.current);
+    }
+    if (streamRef.current) {
+      streamRef.current = null;
+    }
+    setElapsed(0);
+  }
+  /*Função necessária para pausar a gravação.*/
+  async function pauseRecording() {
+    setIsPaused((prev) => !prev);
+    recorderRef.current?.pause();
+    clearInterval(tickRef.current!);
+  }
+  async function resumeRecording() {
+    setIsPaused((prev) => !prev);
+    recorderRef.current?.resume();
+    tickRef.current = setInterval(() => {
+      setElapsed((prev) => prev + 1);
+    }, 1000);
+  }
+  useEffect(() => {
+    return () => {
+      tickRef.current && tickRef.current === null;
+
+      recorderRef.current && recorderRef.current === null;
+      streamRef.current && streamRef.current === null;
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("Recorder state changed:", recorderRef.current?.state);
+  }, [recorderRef.current?.state]);
+
+  const time = formatRelativeTime(elapsed);
 
   return (
     <div className="h-screen flex items-center justify-center flex-col gap-3">
       {!isRecording ? (
-        <Button onClick={startRecording}>Gravar Audio</Button>
+        <Button onClick={async () => await startRecording()}>
+          Gravar Audio
+        </Button>
       ) : (
-        <Button onClick={stopRecording}>Parar Gravação</Button>
+        <section className="flex flex-col items-center gap-2">
+          <Mic size={70} className="border p-2 rounded-full" />
+          <span>
+            {time.split("").map((value, key) => {
+              const v = value;
+              return (
+                <span
+                  key={key}
+                  className={
+                    !v.match(/[m|s]/)
+                      ? "text-xl font-medium"
+                      : "text-sm font-thin"
+                  }
+                >
+                  {v}
+                </span>
+              );
+            })}
+          </span>
+
+          <div className="flex self-bg-center gap-2">
+            <Button
+              variant="destructive"
+              onClick={async () => await stopRecording()}
+              tooltip="Parar Gravação"
+            >
+              <StopCircle />
+            </Button>
+            {isPaused ? (
+              <Button onClick={resumeRecording} tooltip="Retomar Gravação">
+                <Play />
+              </Button>
+            ) : (
+              <Button onClick={pauseRecording} tooltip="Pausar Gravação">
+                <Pause />
+              </Button>
+            )}
+          </div>
+        </section>
       )}
     </div>
   );

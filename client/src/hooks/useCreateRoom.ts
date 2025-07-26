@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { RoomRequest } from "@/types/RoomRequest";
 import type { RoomResponse } from "@/types/RoomResponse";
+import { toast } from "sonner";
 
 export function useCreateRoom() {
   const queryClient = useQueryClient();
@@ -13,9 +14,18 @@ export function useCreateRoom() {
         },
         body: JSON.stringify(data),
       });
+      if (!response.ok) {
+        throw new Error("Já existe uma sala com esse nome");
+      }
       const result: RoomResponse = await response.json();
       return result;
     },
-    onSuccess: () => queryClient.invalidateQueries({queryKey:["get-rooms"]}),
+    onError: (error) => {
+      toast.error(`${error.message}`);
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["get-rooms", ""] });
+      toast.success("Sala Criada Com Sucesso!");
+    },
   });
 }

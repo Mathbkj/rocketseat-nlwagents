@@ -1,6 +1,6 @@
 import { formatDate } from "@/lib/utils/format-relative-date";
 import { Link } from "react-router-dom";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, MailSearch } from "lucide-react";
 import { Badge } from "./ui/badge";
 import {
   Card,
@@ -10,7 +10,7 @@ import {
   CardContent,
 } from "./ui/card";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRooms } from "@/hooks/useRooms";
 import { Input } from "./ui/input";
 
@@ -18,7 +18,11 @@ export function RoomList() {
   // This is a hook that allows the input component to dynamically search for rooms
   const [search, setSearch] = useState("");
 
-  const { data, isRefetching, isLoading, isLoadingError } = useRooms(search);
+  const { data, isLoadingError } = useRooms(search.trim());
+
+  useEffect(() => {
+    console.log("Searching for rooms with:", search);
+  }, [search]);
 
   return (
     <Card>
@@ -36,19 +40,24 @@ export function RoomList() {
         />
       </CardHeader>
 
-      <CardContent className="flex self-center flex-col gap-3">
-        {isRefetching || (isLoading && <Loader2 className="animate-spin" />)}
+      <CardContent className="flex flex-col-reverse gap-2">
         {isLoadingError && <span>Falha ao carregar salas</span>}
+        {data && data.length === 0 && (
+          <span className="flex flex-col-reverse items-center gap-2">
+            Nenhuma sala encontrada
+            <MailSearch />
+          </span>
+        )}
         {data &&
           typeof data !== "string" &&
           data.map((room) => (
             <Link
               to={`/salas/${room.id}`}
               key={room.id}
-              className="flex justify-between p-3 rounded-lg border hover:bg-accent/50"
+              className="flex justify-between px-3 py-2 rounded-lg border hover:bg-accent/50 transition-all"
             >
-              <div className="flex-1 items-start gap-1">
-                <h3 className="font-medium">{room.name}</h3>
+              <div className="flex flex-col gap-1 items-start">
+                <h3 className="font-medium mx-1">{room.name}</h3>
                 <div className="flex items-center gap-2">
                   <Badge className="text-xs" variant="secondary">
                     {formatDate(new Date(room.createdAt))}

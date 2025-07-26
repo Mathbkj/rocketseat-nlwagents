@@ -11,6 +11,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  
+  server: {
+    port: Number(process.env.PORT || "5173"),
+  },
+  preview: {
+    port: Number(process.env.PORT || "5173"),
+    host: "localhost",
+  },
   // Define the base path for the application
-  base:'/salas'
+  base: "/salas",
 });

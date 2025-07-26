@@ -33,7 +33,7 @@ export function SidebarAudios({ roomId }: { roomId: string }) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>
-            Áudios
+            Áudios Anteriores
             <Tooltip>
               <TooltipTrigger asChild>
                 <Badge variant="secondary" className="ml-auto">
@@ -46,16 +46,18 @@ export function SidebarAudios({ roomId }: { roomId: string }) {
 
           <SidebarGroupContent>
             <SidebarMenu>
-              {data?.map(({ id, audio }) => (
-                <SidebarMenuItem key={id}>
-                  <SidebarMenuButton asChild>
-                    <a>
-                      <FileAudioIcon />
-                      <span>{audio}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {data &&
+                typeof data !== "string" &&
+                data.map(({ id, audio }) => (
+                  <SidebarMenuItem key={id}>
+                    <SidebarMenuButton asChild>
+                      <a>
+                        <FileAudioIcon />
+                        <span>{audio}</span>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

@@ -1,7 +1,7 @@
 import type { FastifyPluginCallbackZod } from "fastify-type-provider-zod";
 import { db } from "../../db/index.ts";
 import { options } from "../../db/schemas/index.ts";
-import { count, eq, ilike } from "drizzle-orm";
+import { count, eq, ilike, sql } from "drizzle-orm";
 import { z } from "zod/v4";
 
 export const getRooms: FastifyPluginCallbackZod = (app) => {
