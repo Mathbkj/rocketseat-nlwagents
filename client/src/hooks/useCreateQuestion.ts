@@ -41,6 +41,7 @@ export function useCreateQuestion(roomId: string) {
       );
       return { newQuestion, questions };
     },
+
     // Executa após a mutação ser concluída com sucesso e atualiza a página automaticamente
     onSuccess: (data, _args, context) => {
       queryClient.setQueryData<GetRoomsQuestionsResponse>(
@@ -62,6 +63,9 @@ export function useCreateQuestion(roomId: string) {
           });
         }
       );
+      queryClient.invalidateQueries({
+        queryKey: ["get-questions", roomId],
+      });
     },
 
     onError: (_error, _args, context) => {

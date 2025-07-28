@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RecordRoomAudio } from "./pages/record-room-audio";
 import { Toaster } from "./components/ui/sonner";
 import { toast } from "sonner";
+
 export default function App() {
   return (
     <QueryClientProvider
@@ -17,7 +18,27 @@ export default function App() {
             },
             mutations: {
               throwOnError: false,
-              onError: (error) => toast.error(error.message),
+              onSettled: (data, error, vars, _ctx) => {
+                if (vars && typeof vars === "object" && "question" in vars) {
+                  return;
+                }
+
+                const promise = () =>
+                  new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                      if (error) {
+                        reject(error);
+                      } else {
+                        resolve(data);
+                      }
+                    }, 2000);
+                  });
+                toast.promise(promise, {
+                  loading: "Carregando...",
+                  success: () => `Data Criada Com Sucesso!`,
+                  error: (err) => `Erro: ${err.message}`,
+                });
+              },
             },
           },
         })

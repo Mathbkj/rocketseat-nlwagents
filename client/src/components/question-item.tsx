@@ -1,6 +1,7 @@
 import { Bot, Loader2, MessageSquare } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils/format-relative-date";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Question {
   id: string;
@@ -14,7 +15,46 @@ interface QuestionItemProps {
   question: Question;
 }
 
-export function QuestionItem({ question }: QuestionItemProps) {
+export function QuestionItemSkeleton() {
+  return (
+    <Card>
+      <CardContent>
+        <div className="space-y-4">
+          {/* Question skeleton */}
+          <div className="flex items-start space-x-3">
+            <div className="flex-shrink-0">
+              <Skeleton className="size-8 rounded-full" />
+            </div>
+            <div className="flex-1 space-y-2">
+              <Skeleton className="h-5 w-20" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-[70%]" />
+            </div>
+          </div>
+
+          {/* Answer skeleton */}
+          <div className="flex items-start space-x-3">
+            <div className="flex-shrink-0">
+              <Skeleton className="size-8 rounded-full" />
+            </div>
+            <div className="flex-1 space-y-2">
+              <Skeleton className="h-5 w-24" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-[80%]" />
+            </div>
+          </div>
+
+          {/* Date skeleton */}
+          <div className="flex justify-end">
+            <Skeleton className="h-3 w-20" />
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default function QuestionItem({ question }: QuestionItemProps) {
   const { isGeneratingAnswer } = question;
 
   return (

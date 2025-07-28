@@ -1,5 +1,8 @@
+import { lazy, Suspense } from "react";
 import { useRoomQuestions } from "@/hooks/useRoomQuestions";
-import { QuestionItem } from "./question-item";
+import { delay } from "@/lib/utils/delay";
+import { QuestionItemSkeleton } from "./question-item";
+const QuestionItem = lazy(() => delay(import("@/components/question-item")));
 
 interface QuestionListProps {
   roomId: string;
@@ -17,7 +20,9 @@ export function QuestionList({ roomId }: QuestionListProps) {
       {data &&
         typeof data !== "string" &&
         data.map((question) => (
-          <QuestionItem key={question.id} question={question} />
+          <Suspense fallback={<QuestionItemSkeleton />}>
+            <QuestionItem key={question.id} question={question} />
+          </Suspense>
         ))}
     </div>
   );

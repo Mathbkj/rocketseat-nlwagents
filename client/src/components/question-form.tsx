@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateQuestion } from "@/hooks/useCreateQuestion";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Esquema de validação no mesmo arquivo conforme solicitado
 const createQuestionSchema = z.object({
@@ -35,7 +36,27 @@ interface QuestionFormProps {
   roomId: string;
 }
 
-export function QuestionForm({ roomId }: QuestionFormProps) {
+export function QuestionFormSkeleton() {
+  return (
+    <Card>
+      <CardHeader className="space-y-2">
+        <Skeleton className="h-6 w-[200px]" />
+        <Skeleton className="h-4 w-[300px]" />
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Skeleton className="h-2 w-[100px]" />
+          <Skeleton className="h-[100px] w-full" />
+        </div>
+        <div>
+          <Skeleton className="h-10 w-full" />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default function QuestionForm({ roomId }: QuestionFormProps) {
   const { mutateAsync: createQuestion } = useCreateQuestion(roomId);
   const { formState, ...props } = useForm<CreateQuestionFormData>({
     resolver: zodResolver(createQuestionSchema),

@@ -1,10 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import type { AudioRequest } from "@/types/AudioRequest";
 import type { AudioResponse } from "@/types/AudioResponse";
-import { toast } from "sonner";
 
 export function useCreateAudio(roomId: string) {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ formData }: AudioRequest) => {
       const response = await fetch(
@@ -16,12 +14,6 @@ export function useCreateAudio(roomId: string) {
       );
       const result: AudioResponse = await response.json();
       return result;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["get-rooms", roomId, "audios"],
-      });
-      toast.success("Áudio enviado com sucesso!");
     },
   });
 }
