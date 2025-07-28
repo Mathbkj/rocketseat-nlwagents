@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import { useAudios } from "@/hooks/useAudios";
 import {
   Sidebar,
@@ -7,25 +8,20 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSkeleton,
+  SidebarItemSkeleton,
 } from "./ui/sidebar";
+
+const SidebarItemPreview = lazy(() => import("@/components/ui/sidebar"));
+
 import { FileAudioIcon } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { Suspense } from "react";
 
 export function SidebarAudios({ roomId }: { roomId: string }) {
   const { data, isLoading } = useAudios(roomId);
   if (isLoading) {
-    return (
-      <SidebarMenu>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <SidebarMenuItem key={index.toString()}>
-            <SidebarMenuSkeleton showIcon />
-          </SidebarMenuItem>
-        ))}
-      </SidebarMenu>
-    );
+    return;
   }
   if (!data) throw new Error("No data found");
   return (
@@ -49,14 +45,16 @@ export function SidebarAudios({ roomId }: { roomId: string }) {
               {data &&
                 typeof data !== "string" &&
                 data.map(({ id, audio }) => (
-                  <SidebarMenuItem key={id}>
-                    <SidebarMenuButton asChild>
-                      <a>
-                        <FileAudioIcon />
-                        <span>{audio}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
+                  <Suspense fallback={<SidebarItemSkeleton />}>
+                    <SidebarItemPreview key={id}>
+                      <SidebarMenuButton asChild>
+                        <a>
+                          <FileAudioIcon />
+                          <span>{audio}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarItemPreview>
+                  </Suspense>
                 ))}
             </SidebarMenu>
           </SidebarGroupContent>

@@ -9,9 +9,7 @@ import {
 } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import {
-  AudioLinesIcon, Command
-} from "lucide-react";
+import { AudioLinesIcon, Command } from "lucide-react";
 
 import { useIsMobile } from "@/hooks/useMobile";
 import { cn } from "@/lib/utils";
@@ -64,7 +62,7 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-  defaultOpen = false,
+  defaultOpen = true,
   open: openProp,
   onOpenChange: setOpenProp,
   className,
@@ -72,7 +70,7 @@ function SidebarProvider({
   children,
   ...props
 }: ComponentProps<"div"> & {
-    defaultOpen?: boolean;
+  defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }) {
@@ -403,7 +401,10 @@ function SidebarGroup({ className, ...props }: ComponentProps<"div">) {
     <div
       data-slot="sidebar-group"
       data-sidebar="group"
-      className={cn("relative flex w-full min-w-0 overflow-hidden flex-col p-2", className)}
+      className={cn(
+        "relative flex w-full min-w-0 overflow-hidden flex-col p-2",
+        className
+      )}
       {...props}
     />
   );
@@ -611,7 +612,7 @@ function SidebarMenuBadge({ className, ...props }: ComponentProps<"div">) {
   );
 }
 
-function SidebarMenuSkeleton({
+function SidebarItemSkeleton({
   className,
   showIcon = false,
   ...props
@@ -722,8 +723,8 @@ export {
   SidebarMenuAction,
   SidebarMenuBadge,
   SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSkeleton,
+  SidebarMenuItem as default,
+  SidebarItemSkeleton,
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
