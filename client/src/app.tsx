@@ -52,7 +52,7 @@ export default function App() {
       />
       <BrowserRouter>
         <Routes>
-          <Route path="/salas" element={<CreateRoom />} />
+          <Route path="/" element={<CreateRoom />} />
           <Route path="/salas/:roomId" element={<Room />} />
           <Route path="/salas/:roomId/:audio" element={<RecordRoomAudio />} />
         </Routes>

@@ -31,9 +31,5 @@ export default defineConfig({
       },
     },
   },
-  build: {
-    outDir:"salas/dist"
-  },
   // Caminho base da aplicação(URL raiz)
-  base: "/salas",
 });

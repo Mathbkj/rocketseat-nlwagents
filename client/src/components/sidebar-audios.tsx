@@ -11,7 +11,9 @@ import {
   SidebarMenuButton,
 } from "./ui/sidebar";
 
-const SidebarItemPreview = lazy(() => import("@/components/core/sidebar-item"));
+const SidebarItemPreview = lazy(
+  () => import("../components/core/sidebar-item.tsx")
+);
 
 import { FileAudioIcon } from "lucide-react";
 import { Suspense } from "react";

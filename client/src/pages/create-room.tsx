@@ -3,9 +3,9 @@ import { delay } from "@/lib/utils/delay";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { CreateRoomFormSkeleton } from "@/components/core/create-room-form-skeleton";
 import { RoomListSkeleton } from "@/components/core/room-list-skeleton";
-const ErrorPreview = lazy(() => import("@/components/core/server-error"));
-const FormPreview = lazy(() => delay(import("@/components/create-room-form")));
-const RoomPreview = lazy(() => delay(import("@/components/room-list")));
+const ErrorPreview = lazy(() => import("../components/core/server-error.tsx"));
+const FormPreview = lazy(() => delay(import("../components/create-room-form.tsx")));
+const RoomPreview = lazy(() => delay(import("../components/room-list.tsx")));
 
 export function CreateRoom() {
   return (

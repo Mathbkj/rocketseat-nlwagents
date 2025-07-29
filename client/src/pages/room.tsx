@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { delay } from "@/lib/utils/delay";
 import { SidebarAudios } from "@/components/sidebar-audios";
-const FormPreview = lazy(() => delay(import("@/components/question-form")));
+const FormPreview = lazy(() => delay(import("../components/question-form.tsx")));
 import { QuestionList } from "@/components/question-list";
 import { Button } from "@/components/ui/button";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
