@@ -7,7 +7,7 @@ export function useAudios(roomId: string) {
     queryFn: async () => {
       try {
         const response = await fetch(
-          `/api/salas/${roomId}/audios`
+          `${process.env.BACKEND}/salas/${roomId}/audios`
         );
         const data: GetRoomAudioResponse = await response.json();
         return data;
