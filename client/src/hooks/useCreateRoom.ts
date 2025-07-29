@@ -6,7 +6,7 @@ export function useCreateRoom() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: RoomRequest) => {
-      const response = await fetch("http://localhost:3333/salas", {
+      const response = await fetch("/api/salas", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

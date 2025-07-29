@@ -8,7 +8,7 @@ export function useCreateQuestion(roomId: string) {
   return useMutation({
     mutationFn: async ({ question }: QuestionRequest) => {
       const response = await fetch(
-        `http://localhost:3333/salas/${roomId}/perguntas`,
+        `/api/salas/${roomId}/perguntas`,
         {
           method: "POST",
           headers: {

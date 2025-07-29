@@ -6,7 +6,7 @@ export function useCreateAudio(roomId: string) {
   return useMutation({
     mutationFn: async ({ formData }: AudioRequest) => {
       const response = await fetch(
-        `http://localhost:3333/salas/${roomId}/audios`,
+        `/api/salas/${roomId}/audios`,
         {
           method: "POST",
           body: formData,

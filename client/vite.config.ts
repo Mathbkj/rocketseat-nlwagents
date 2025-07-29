@@ -11,13 +11,18 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  
   server: {
     port: Number(process.env.PORT || "5173"),
+    proxy: {
+      "/api": {
+        target: "http://localhost:3333",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
   preview: {
     port: Number(process.env.PORT || "5173"),
-    host: "localhost",
   },
   // Define the base path for the application
   base: "/salas",

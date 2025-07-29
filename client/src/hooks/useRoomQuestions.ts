@@ -7,7 +7,7 @@ export function useRoomQuestions(roomId: string) {
     queryFn: async () => {
       try {
         const response = await fetch(
-          `http://localhost:3333/salas/${roomId}/perguntas`
+          `/api/salas/${roomId}/perguntas`
         );
         const data: GetRoomsQuestionsResponse = await response.json();
         return data;
