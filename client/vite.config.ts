@@ -23,7 +23,17 @@ export default defineConfig({
   },
   preview: {
     port: Number(process.env.PORT || "5173"),
+    proxy: {
+      "/api": {
+        target: "http://localhost:3333",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
-  // Define the base path for the application
+  build: {
+    outDir:"salas/dist"
+  },
+  // Caminho base da aplicação(URL raiz)
   base: "/salas",
 });
