@@ -7,7 +7,7 @@ export function useRoomQuestions(roomId: string) {
     queryFn: async () => {
       try {
         const response = await fetch(
-          `${process.env.BACKEND || "/api"}/salas/${roomId}/perguntas`
+          `${process.env.BACKEND!}/salas/${roomId}/perguntas`
         );
         const data: GetRoomsQuestionsResponse = await response.json();
         return data;
