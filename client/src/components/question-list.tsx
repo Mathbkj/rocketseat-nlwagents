@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { useRoomQuestions } from "@/hooks/useRoomQuestions";
 import { delay } from "@/lib/utils/delay";
-import { QuestionItemSkeleton } from "./question-item";
+import { QuestionItemSkeleton } from "@/components/core/question-item-skeleton";
 const QuestionItem = lazy(() => delay(import("@/components/question-item")));
 
 interface QuestionListProps {

@@ -1,6 +1,7 @@
 import { Bot } from "lucide-react";
 import { Suspense } from "react";
 
+/*Componente que renderiza quando há um erro de servidor*/
 export default function ServerError() {
   return (
     <Suspense fallback={<div>Carregando...</div>}>

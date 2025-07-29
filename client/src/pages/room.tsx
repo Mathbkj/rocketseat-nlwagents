@@ -9,7 +9,7 @@ import type { RoomParams } from "@/types/RoomParams";
 import { ArrowLeft, Radio } from "lucide-react";
 import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { QuestionFormSkeleton } from "@/components/question-form";
+import { QuestionFormSkeleton } from "@/components/core/question-form-skeleton";
 
 export function Room() {
   const navigate = useNavigate();
@@ -62,7 +62,6 @@ export function Room() {
               <FormPreview roomId={roomId as string} />
             </Suspense>
           </div>
-
           <QuestionList roomId={roomId as string} />
         </div>
       </div>

@@ -1,5 +1,6 @@
-import { lazy } from "react";
+import { SidebarItemSkeleton } from "@/components/core/sidebar-item-skeleton";
 import { useAudios } from "@/hooks/useAudios";
+import { lazy } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -8,15 +9,14 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarItemSkeleton,
 } from "./ui/sidebar";
 
-const SidebarItemPreview = lazy(() => import("@/components/ui/sidebar"));
+const SidebarItemPreview = lazy(() => import("@/components/core/sidebar-item"));
 
 import { FileAudioIcon } from "lucide-react";
+import { Suspense } from "react";
 import { Badge } from "./ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { Suspense } from "react";
 
 export function SidebarAudios({ roomId }: { roomId: string }) {
   const { data, isLoading } = useAudios(roomId);

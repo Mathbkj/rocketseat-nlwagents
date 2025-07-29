@@ -1,11 +1,11 @@
 import { lazy, Suspense } from "react";
 import { delay } from "@/lib/utils/delay";
+import { ErrorBoundary } from "@/components/error-boundary";
+import { CreateRoomFormSkeleton } from "@/components/core/create-room-form-skeleton";
+import { RoomListSkeleton } from "@/components/core/room-list-skeleton";
 const ErrorPreview = lazy(() => import("@/components/core/server-error"));
 const FormPreview = lazy(() => delay(import("@/components/create-room-form")));
 const RoomPreview = lazy(() => delay(import("@/components/room-list")));
-import { ErrorBoundary } from "@/components/error-boundary";
-import { CreateRoomFormSkeleton } from "@/components/create-room-form";
-import { RoomListSkeleton } from "@/components/room-list";
 
 export function CreateRoom() {
   return (
@@ -13,7 +13,7 @@ export function CreateRoom() {
       <ErrorBoundary
         error={new Error("Falha no servidor")}
         resetErrorBoundary={() => {}}
-        element={<ErrorPreview/>}
+        element={<ErrorPreview />}
       >
         <div className="mx-auto max-w-4xl">
           <div className="grid gap-8 grid-cols-2 items-start">
