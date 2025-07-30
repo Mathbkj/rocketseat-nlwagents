@@ -14,12 +14,15 @@ export default function App() {
           defaultOptions: {
             queries: {
               retry: 1,
-              throwOnError: true,
             },
             mutations: {
               throwOnError: false,
               onSettled: (data, error, vars, _ctx) => {
                 if (vars && typeof vars === "object" && "question" in vars) {
+                  if (error) {
+                    toast.warning(
+                      `${error.message}`,)
+                  }
                   return;
                 }
 

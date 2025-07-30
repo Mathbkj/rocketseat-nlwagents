@@ -2,9 +2,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { QuestionRequest } from "@/types/QuestionRequest";
 import type { QuestionResponse } from "@/types/QuestionResponse";
 import type { GetRoomsQuestionsResponse } from "@/types/GetRoomsQuestionsResponse";
+import type { GetRoomAudioResponse } from "@/types/GetRoomAudioResponse";
 
 export function useCreateQuestion(roomId: string) {
   const queryClient = useQueryClient();
+  const audios = queryClient.getQueryData<GetRoomAudioResponse>([
+    "get-rooms",
+    roomId,
+    "audios",
+  ]);
   return useMutation({
     mutationFn: async ({ question }: QuestionRequest) => {
       const response = await fetch(
@@ -22,6 +28,9 @@ export function useCreateQuestion(roomId: string) {
     },
     // Executa no momento da chamada p/ API e recebe o corpo da requisição como argumento
     onMutate: ({ question }) => {
+      if (!audios || audios.length === 0) {
+        throw new Error("Não há áudios disponíveis para um embasamento ao responder à pergunta.");
+      }
       const questions = queryClient.getQueryData<GetRoomsQuestionsResponse>([
         "get-questions",
         roomId,

@@ -36,7 +36,11 @@ interface QuestionFormProps {
 }
 
 export default function QuestionForm({ roomId }: QuestionFormProps) {
-  const { mutateAsync: createQuestion } = useCreateQuestion(roomId);
+  const {
+    mutateAsync: createQuestion,
+    error,
+    reset,
+  } = useCreateQuestion(roomId);
   const { formState, ...props } = useForm<CreateQuestionFormData>({
     resolver: zodResolver(createQuestionSchema),
     defaultValues: {
@@ -45,50 +49,51 @@ export default function QuestionForm({ roomId }: QuestionFormProps) {
   });
 
   async function handleCreateQuestion(data: CreateQuestionFormData) {
-    const response = await createQuestion(data);
-    console.log(response);
+    await createQuestion(data);
   }
   const { isSubmitting } = formState;
 
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Fazer uma Pergunta</CardTitle>
-        <CardDescription>
-          Digite sua pergunta abaixo para receber uma resposta gerada por I.A.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form formState={formState} {...props}>
-          <form
-            className="flex flex-col gap-4"
-            onSubmit={props.handleSubmit(handleCreateQuestion)}
-          >
-            <FormField
-              control={props.control}
-              name="question"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Sua Pergunta</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      className="min-h-[100px]"
-                      placeholder="O que você gostaria de saber?"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+  {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Fazer uma Pergunta</CardTitle>
+          <CardDescription>
+            Digite sua pergunta abaixo para receber uma resposta gerada por I.A.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Form formState={formState} {...props}>
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={props.handleSubmit(handleCreateQuestion)}
+            >
+              <FormField
+                control={props.control}
+                name="question"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Sua Pergunta</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        disabled={isSubmitting}
+                        className="min-h-[100px]"
+                        placeholder="O que você gostaria de saber?"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <Button disabled={isSubmitting} type="submit">
-              {isSubmitting ? "Enviando..." : "Enviar pergunta"}
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
-  );
+              <Button disabled={isSubmitting} type="submit">
+                {isSubmitting ? "Enviando..." : "Enviar pergunta"}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    );
+  }
 }

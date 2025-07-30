@@ -20,7 +20,7 @@ export function QuestionList({ roomId }: QuestionListProps) {
       {data &&
         typeof data !== "string" &&
         data.map((question) => (
-          <Suspense fallback={<QuestionItemSkeleton />}>
+          <Suspense key={question.id} fallback={<QuestionItemSkeleton />}>
             <QuestionItem key={question.id} question={question} />
           </Suspense>
         ))}
