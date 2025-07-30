@@ -20,8 +20,7 @@ export default function App() {
               onSettled: (data, error, vars, _ctx) => {
                 if (vars && typeof vars === "object" && "question" in vars) {
                   if (error) {
-                    toast.warning(
-                      `${error.message}`,)
+                    toast.warning(`${error.message}`);
                   }
                   return;
                 }

@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateQuestion } from "@/hooks/useCreateQuestion";
+import { Loader2 } from "lucide-react";
 
 // Esquema de validação no mesmo arquivo conforme solicitado
 const createQuestionSchema = z.object({
@@ -36,11 +37,7 @@ interface QuestionFormProps {
 }
 
 export default function QuestionForm({ roomId }: QuestionFormProps) {
-  const {
-    mutateAsync: createQuestion,
-    error,
-    reset,
-  } = useCreateQuestion(roomId);
+  const { mutateAsync: createQuestion } = useCreateQuestion(roomId);
   const { formState, ...props } = useForm<CreateQuestionFormData>({
     resolver: zodResolver(createQuestionSchema),
     defaultValues: {
@@ -51,6 +48,7 @@ export default function QuestionForm({ roomId }: QuestionFormProps) {
   async function handleCreateQuestion(data: CreateQuestionFormData) {
     await createQuestion(data);
   }
+
   const { isSubmitting } = formState;
 
   {
@@ -88,7 +86,13 @@ export default function QuestionForm({ roomId }: QuestionFormProps) {
               />
 
               <Button disabled={isSubmitting} type="submit">
-                {isSubmitting ? "Enviando..." : "Enviar pergunta"}
+                {isSubmitting ? (
+                  <span className="text-center flex items-center gap-2">
+                    Enviando <Loader2 className="animate-spin" />
+                  </span>
+                ) : (
+                  "Enviar pergunta"
+                )}
               </Button>
             </form>
           </Form>

@@ -29,7 +29,9 @@ export function useCreateQuestion(roomId: string) {
     // Executa no momento da chamada p/ API e recebe o corpo da requisição como argumento
     onMutate: ({ question }) => {
       if (!audios || audios.length === 0) {
-        throw new Error("Não há áudios disponíveis para um embasamento ao responder à pergunta.");
+        throw new Error(
+          "Não há áudios disponíveis para um embasamento ao responder à pergunta."
+        );
       }
       const questions = queryClient.getQueryData<GetRoomsQuestionsResponse>([
         "get-questions",
