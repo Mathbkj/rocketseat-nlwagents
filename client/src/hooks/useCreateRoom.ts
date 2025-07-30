@@ -6,7 +6,7 @@ export function useCreateRoom() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: RoomRequest) => {
-      const response = await fetch(`${process.env.BACKEND!}/salas`, {
+      const response = await fetch(`${process.env.VITE_API_URL || '/api'}/salas`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

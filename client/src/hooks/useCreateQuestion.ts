@@ -8,7 +8,7 @@ export function useCreateQuestion(roomId: string) {
   return useMutation({
     mutationFn: async ({ question }: QuestionRequest) => {
       const response = await fetch(
-        `${process.env.BACKEND!}/salas/${roomId}/perguntas`,
+        `${process.env.VITE_API_URL || '/api'}/salas/${roomId}/perguntas`,
         {
           method: "POST",
           headers: {

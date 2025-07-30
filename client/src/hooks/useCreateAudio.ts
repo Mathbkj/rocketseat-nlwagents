@@ -6,7 +6,7 @@ export function useCreateAudio(roomId: string) {
   return useMutation({
     mutationFn: async ({ formData }: AudioRequest) => {
       const response = await fetch(
-        `${process.env.BACKEND!}/salas/${roomId}/audios`,
+        `${process.env.VITE_API_URL || '/api'}/salas/${roomId}/audios`,
         {
           method: "POST",
           body: formData,

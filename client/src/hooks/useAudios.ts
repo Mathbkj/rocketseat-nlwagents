@@ -7,7 +7,7 @@ export function useAudios(roomId: string) {
     queryFn: async () => {
       try {
         const response = await fetch(
-          `${process.env.BACKEND}/salas/${roomId}/audios`
+          `${process.env.VITE_API_URL || '/api'}/salas/${roomId}/audios`
         );
         const data: GetRoomAudioResponse = await response.json();
         return data;

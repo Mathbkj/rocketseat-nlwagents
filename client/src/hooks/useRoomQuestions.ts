@@ -7,7 +7,7 @@ export function useRoomQuestions(roomId: string) {
     queryFn: async () => {
       try {
         const response = await fetch(
-          `${process.env.BACKEND!}/salas/${roomId}/perguntas`
+          `${process.env.VITE_API_URL || '/api'}/salas/${roomId}/perguntas`
         );
         const data: GetRoomsQuestionsResponse = await response.json();
         return data;
