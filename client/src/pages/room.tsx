@@ -1,7 +1,9 @@
 import { lazy, Suspense } from "react";
 import { delay } from "@/lib/utils/delay";
 import { SidebarAudios } from "@/components/sidebar-audios";
-const FormPreview = lazy(() => delay(import("../components/question-form.tsx")));
+const FormPreview = lazy(() =>
+  delay(import("../components/question-form.tsx"))
+);
 import { QuestionList } from "@/components/question-list";
 import { Button } from "@/components/ui/button";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -36,13 +38,13 @@ export function Room() {
         <div className="container mx-auto max-w-4xl px-4 py-8">
           <div className="mb-8">
             <div className="mb-4 flex items-center justify-between">
-              <Link to="/salas">
+              <Link to={`/${roomId}`}>
                 <Button variant="outline">
                   <ArrowLeft className="mr-2 size-4" />
                   Voltar ao Início
                 </Button>
               </Link>
-              <Link to={`/salas/${roomId}/audio`}>
+              <Link to={`/${roomId}/audio`}>
                 <Button className="flex items-center gap-2" variant="secondary">
                   <Radio className="size-4" />
                   Gravar Áudio
