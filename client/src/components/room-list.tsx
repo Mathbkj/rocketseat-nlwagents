@@ -58,7 +58,7 @@ export default function RoomList() {
           typeof data !== "string" &&
           data.map((room) => (
             <Link
-              to={`/salas/${room.id}`}
+              to={`/${room.id}`}
               key={room.id}
               className="flex justify-between px-3 py-2 rounded-lg border hover:bg-accent/50 transition-all"
             >
