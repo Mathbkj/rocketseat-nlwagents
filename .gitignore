@@ -4,4 +4,4 @@ package-lock.json
 dist
 migrations
 **/tests/
-.env
+.env.local

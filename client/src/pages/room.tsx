@@ -20,7 +20,7 @@ export function Room() {
 
     setTimeout(() => {
       if (!roomId) {
-        navigate("/salas");
+        navigate("/");
       }
     }, 1000);
 

@@ -6,7 +6,7 @@ export function useRooms(name: string) {
     queryKey: ["get-rooms", name],
     queryFn: async () => {
       const response = await fetch(
-        `${process.env.VITE_API_URL || '/api'}/salas?name=${encodeURIComponent(name)}`
+        `${import.meta.env.VITE_API_URL}/salas?name=${encodeURIComponent(name)}`
       );
       const data: GetRoomsAPIResponse = await response.json();
       return data;
