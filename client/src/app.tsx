@@ -17,12 +17,9 @@ export default function App() {
             },
             mutations: {
               throwOnError: false,
-              onSettled: (data, error, vars, _ctx) => {
+              onSettled: async (data, error, vars, _ctx) => {
                 if (vars && typeof vars === "object" && "question" in vars) {
-                  if (error) {
-                    toast.warning(`${error.message}`);
-                  }
-                  return;
+                  toast.dismiss();
                 }
 
                 const promise = () =>
@@ -37,7 +34,7 @@ export default function App() {
                   });
                 toast.promise(promise, {
                   loading: "Carregando...",
-                  success: () => `Data Criada Com Sucesso!`,
+                  success: () => "Data criada com sucesso!",
                   error: (err) => `Erro: ${err.message}`,
                 });
               },

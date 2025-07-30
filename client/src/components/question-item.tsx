@@ -14,7 +14,6 @@ interface QuestionItemProps {
   question: Question;
 }
 
-
 export default function QuestionItem({ question }: QuestionItemProps) {
   const { isGeneratingAnswer } = question;
 
@@ -23,7 +22,6 @@ export default function QuestionItem({ question }: QuestionItemProps) {
       <CardContent>
         <div className="space-y-4">
           {/* Question */}
-          {!question.answer && !question.isGeneratingAnswer && <></>}
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0">
               <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">

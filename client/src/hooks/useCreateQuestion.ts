@@ -3,6 +3,7 @@ import type { QuestionRequest } from "@/types/QuestionRequest";
 import type { QuestionResponse } from "@/types/QuestionResponse";
 import type { GetRoomsQuestionsResponse } from "@/types/GetRoomsQuestionsResponse";
 import type { GetRoomAudioResponse } from "@/types/GetRoomAudioResponse";
+import { toast } from "sonner";
 
 export function useCreateQuestion(roomId: string) {
   const queryClient = useQueryClient();
@@ -52,14 +53,17 @@ export function useCreateQuestion(roomId: string) {
       );
       return { newQuestion, questions };
     },
+    onSettled: (data, error, _vars, context) => {
+      if (error) {
+        toast.warning(error.message);
+      }
+      if (!data || !context) return;
 
-    // Executa após a mutação ser concluída com sucesso e atualiza a página automaticamente
-    onSuccess: (data, _args, context) => {
       queryClient.setQueryData<GetRoomsQuestionsResponse>(
         ["get-questions", roomId],
         (questions) => {
           if (!questions) return [];
-          if (!context.questions) return questions;
+          if (!context?.questions) return questions;
 
           return questions.map((question) => {
             if (question.id === context.newQuestion.id) {
@@ -77,15 +81,6 @@ export function useCreateQuestion(roomId: string) {
       queryClient.invalidateQueries({
         queryKey: ["get-questions", roomId],
       });
-    },
-
-    onError: (_error, _args, context) => {
-      if (context?.questions) {
-        queryClient.setQueryData<GetRoomsQuestionsResponse>(
-          ["get-questions", roomId],
-          [...context.questions]
-        );
-      }
     },
   });
 }
