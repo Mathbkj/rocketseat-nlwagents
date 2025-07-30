@@ -53,8 +53,8 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<CreateRoom />} />
-          <Route path="/salas/:roomId" element={<Room />} />
-          <Route path="/salas/:roomId/:audio" element={<RecordRoomAudio />} />
+          <Route path="/:roomId" element={<Room />} />
+          <Route path="/:roomId/:audio" element={<RecordRoomAudio />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
