@@ -5,13 +5,13 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "npm run prod:push && node ./dist/index.js",
-    "dev": "node --env-file .env --experimental-strip-types --no-warnings --watch src/index.ts",
+    "dev": "node --env-file .env.local --experimental-strip-types --no-warnings --watch src/index.ts",
     "prod:push": "drizzle-kit push --config=drizzle.config.prod.ts",
     "dev:generate": "drizzle-kit generate --config=drizzle.config.dev.ts",
     "dev:migrate": "drizzle-kit migrate --config=drizzle.config.dev.ts",
     "dev:push": "drizzle-kit push --config=drizzle.config.dev.ts",
-    "dev:reset": "node --env-file .env --experimental-strip-types --no-warnings src/db/reset.ts",
-    "dev:seed": "node --env-file .env --experimental-strip-types --no-warnings src/db/seed.ts",
+    "dev:reset": "node --env-file .env.local --experimental-strip-types --no-warnings src/db/reset.ts",
+    "dev:seed": "node --env-file .env.local --experimental-strip-types --no-warnings src/db/seed.ts",
     "studio":"drizzle-kit studio --config=drizzle.config.dev.ts"
   },
   "keywords": [],

@@ -16,7 +16,7 @@ import { getRoomAudios } from "./http/routes/get-audios.ts";
 const app = fastify();
 
 app.register(fastifyCors, {
-  origin: "http://localhost:5173",
+  origin: process.env.CORS_ORIGIN,
 });
 app.register(fastifyMultipart);
 
