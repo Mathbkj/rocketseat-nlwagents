@@ -1,4 +1,4 @@
-import { reset, seed } from "drizzle-seed";
+import { reset } from "drizzle-seed";
 import { client, db } from "./index.ts";
 import { options } from "./schemas/index.ts";
 
